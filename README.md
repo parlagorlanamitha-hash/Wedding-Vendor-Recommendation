@@ -30,24 +30,6 @@ The **Wedding Vendor Recommendation System** is a Machine Learning-based project
 * Rating-based recommendations.
 * Personalized results.
 
-⚙️ Machine Learning Workflow
-
-Dataset
-   ↓
-Data Cleaning
-   ↓
-Data Preprocessing
-   ↓
-Feature Selection
-   ↓
-Feature Representation
-   ↓
-Similarity / Recommendation Model
-   ↓
-Vendor Recommendations
-   ↓
-User Interface
-
 ## 🔄 Working Process
 
 1. Collect wedding vendor dataset.
