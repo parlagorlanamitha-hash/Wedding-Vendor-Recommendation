@@ -29,27 +29,7 @@ The **Wedding Vendor Recommendation System** is a Machine Learning-based project
 * Vendor category selection.
 * Rating-based recommendations.
 * Personalized results.
-Machine Learning Workflow
 
-1. Data Collection
-       ↓
-2. Data Preprocessing
-       ↓
-3. Feature Selection
-       ↓
-4. Train-Test Split
-       ↓
-5. Model Selection
-       ↓
-6. Model Training
-       ↓
-7. Model Evaluation
-       ↓
-8. User Input
-       ↓
-9. Vendor Recommendation
-       ↓
-10. Output
 
 ## 🔄 Working Process
 
