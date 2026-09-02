@@ -1,0 +1,89 @@
+import pandas as pd
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# Load dataset
+df = pd.read_csv(r"C:\Users\Administrator\Documents\wedding_vendors.csv")
+
+# Fill missing values
+columns = ["category", "location", "services", "price_range", "description"]
+
+for col in columns:
+    df[col] = df[col].fillna("")
+
+# Combine vendor information
+df["features"] = (
+    df["category"] + " " +
+    df["location"] + " " +
+    df["services"] + " " +
+    df["price_range"] + " " +
+    df["description"]
+)
+
+# Convert text into numerical values
+vectorizer = TfidfVectorizer(stop_words="english")
+tfidf_matrix = vectorizer.fit_transform(df["features"])
+
+# Calculate similarity
+similarity = cosine_similarity(tfidf_matrix)
+
+
+# Recommendation function
+def recommend_vendor(category, location, price_range):
+
+    # Create user preference
+    user_preference = (
+        category + " " +
+        location + " " +
+        price_range
+    )
+
+    # Convert user preference into TF-IDF
+    user_vector = vectorizer.transform([user_preference])
+
+    # Calculate similarity with all vendors
+    scores = cosine_similarity(
+        user_vector,
+        tfidf_matrix
+    )[0]
+
+    # Add scores to dataframe
+    df["similarity_score"] = scores
+
+    # Sort vendors by similarity
+    recommendations = df.sort_values(
+        by="similarity_score",
+        ascending=False
+    )
+
+    print("\nRecommended Wedding Vendors")
+    print("----------------------------")
+
+    count = 0
+
+    for _, vendor in recommendations.iterrows():
+
+        print("\nVendor:", vendor["name"])
+        print("Category:", vendor["category"])
+        print("Location:", vendor["location"])
+        print("Services:", vendor["services"])
+        print("Price Range:", vendor["price_range"])
+        print("Rating:", vendor["rating"])
+
+        count += 1
+
+        if count == 5:
+            break
+
+
+# Get user preferences
+category = input("Enter vendor category: ")
+location = input("Enter location: ")
+price_range = input("Enter price range: ")
+
+# Recommend vendors
+recommend_vendor(
+    category,
+    location,
+    price_range
+)
